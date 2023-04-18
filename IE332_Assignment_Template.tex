@@ -1,0 +1,162 @@
+\documentclass[11pt]{article}
+
+%  USE PACKAGES  ---------------------- 
+\usepackage[margin=0.7in,vmargin=1in]{geometry}
+\usepackage{amsmath,amsthm,amsfonts}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage{mathtools}
+\usepackage{hyperref,color}
+\usepackage{enumitem,amssymb}
+\newlist{todolist}{itemize}{4}
+\setlist[todolist]{label=$\square$}
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\done}{\rlap{$\square$}{\raisebox{2pt}{\large\hspace{1pt}\cmark}}%
+\hspace{-2.5pt}}
+\newcommand{\HREF}[2]{\href{#1}{#2}}
+\usepackage{textcomp}
+\usepackage{listings}
+\lstset{
+basicstyle=\small\ttfamily,
+% columns=flexible,
+upquote=true,
+breaklines=true,
+showstringspaces=false
+}
+%  -------------------------------------------- 
+
+%  HEADER AND FOOTER (DO NOT EDIT) ----------------------
+\newcommand{\problemnumber}{0}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[L]{\textbf{Question \problemnumber}}
+\newcommand{\newquestion}[1]{
+\clearpage % page break and flush floats
+\renewcommand{\problemnumber}{#1} % set problem number for header
+\phantom{}  % Put something on the page so it shows
+}
+\fancyfoot[L]{IE 332}
+\fancyfoot[C]{Assignment submission}
+\fancyfoot[R]{Page \thepage}
+\renewcommand{\footrulewidth}{0.4pt}
+
+%  --------------------------------------------
+
+
+%  COVER SHEET (FILL IN THE TABLE AS INSTRUCTED IN THE ASSIGNMENT) ----------------------
+\newcommand{\addcoversheet}{
+\clearpage
+\thispagestyle{empty}
+\vspace*{0.5in}
+
+\begin{center}
+\Huge{{\bf IE332 Project \#2}} % <-- replace with correct assignment #
+
+Due: Month Date th, 11:59pm EST % <-- replace with correct due date and time
+\end{center}
+
+\vspace{0.3in}
+
+\noindent We have {\bf read and understood the assignment instructions}. We certify that the submitted work does not violate any academic misconduct rules, and that it is solely our own work. By listing our names below we acknowledge that any misconduct will result in appropriate consequences. 
+
+\vspace{0.2in}
+
+\noindent {\em ``As a Boilermaker pursuing academic excellence, I pledge to be honest and true in all that I do.
+Accountable together -- we are Purdue.''}
+
+\vspace{0.3in}
+
+\begin{table}[h!]
+  \begin{center}
+    \label{tab:table1}
+    \begin{tabular}{c|ccccc|c|c}
+      Student & Q1 & Q2 & Q3 & Q4 & Q5 & Overall & DIFF\\
+      \hline
+      Annie Zhang & 10 & 60 & 10 & 10 & 10 & 100 & 0\\
+      Caroline Cudney & 10 & 10 & 60 & 10 & 60 & 100 & 0\\
+      Hrishabh Nadkarni & 60 & 10 & 10 & 10 & 10 & 100 & 0\\
+      Mounzr Nabulsi & 10 & 10 & 10 & 10 & 10 & 50 & 50\\
+      Yuze Tang & 10 & 10 & 10 & 60 & 10 & 70 & 30\\
+      \hline
+      St Dev & 20 & 20 & 20 & 20 & 20 & 44.27 & 44.27
+    \end{tabular}
+  \end{center}
+\end{table}
+
+\vspace{0.2in}
+
+\noindent Date: \today.
+}
+%  -----------------------------------------
+
+%  TODO LIST (COMPLETE THE FULL CHECKLIST - USE AS EXAMPLE THE FIRST CHECKED BOXES!) ----------------------
+\newcommand{\addtodo}{
+\clearpage
+\thispagestyle{empty}
+
+\section*{Read Carefully. Important!}
+
+\noindent By electronically uploading this assignment to Brightspace you acknowledge these statements and accept any repercussions if in any violation of ANY Purdue Academic Misconduct policies. You must upload your homework on time for it to be graded. No late assignments will be accepted. {\bf Only the last uploaded version of your assignment before the due date will be graded}.
+
+\vspace{0.2in}
+
+\noindent {\bf NOTE:} You should aim to submit no later than 30 minutes before the deadline, as there could be last minute network traffic that would cause your assignment to be late, resulting in a grade of zero. 
+
+\vspace{0.2in}
+
+\noindent When submitting your assignment it is assumed that every student considers the below checklist, as there are grading consequences otherwise (e.g., not submitting a cover sheet is an automatic grade of ZERO).
+
+\begin{todolist}
+
+    \item[\done] Your solutions were prepared using the \LaTeX template provided in Brightspace. 
+    \item[\done] Your submission has a cover sheet as its first page and this checklist as its second page, according to the template provided.
+	 \item All of your solutions (program code, etc.) are included in the submission as requested. % Check this checkbox and the following ones if satisfied <---
+    \item You have not included any screen shots, photos, etc. (plots should be intermediately saved as .png files and then added into your .tex file). % <---
+	 \item All math notation and algorithms (algorithmic environment) are created using appropriate \LaTeX code (no pictures, handwritten solutions, etc.). % <---
+    \item The .pdf is submitted as an individual file and not in a {\tt .zip}.
+    \item You kept the \LaTeX source code in your files until this assignment is graded, in case you are required to show proof of creating your assignment using \LaTeX.  % <---
+    \item If submitting with a partner, your partner is added in the submission section in Gradescope after you upload your file. % <---
+    \item You have correctly matched each question to its page \# in the .pdf submission in the Gradescope section (after you uploaded your file).
+    \item Watch videos on creating pseudocode if you need a refresher or quick reference to the idea. These are good starter videos:    % <---
+    
+     \HREF{https://www.youtube.com/watch?v=4jLO0vXPktU}{www.youtube.com/watch?v=4jLO0vXPktU} 
+    
+    \HREF{https://www.youtube.com/watch?v=yGvfltxHKUU}{www.youtube.com/watch?v=yGvfltxHKUU}
+\end{todolist}
+}
+
+%% LaTeX
+% Für alle, die die Schönheit von Wissenschaft anderen zeigen wollen
+% For anyone who wants to show the beauty of science to others
+
+%  -----------------------------------------
+
+
+\begin{document}
+
+
+\addcoversheet
+\addtodo
+
+% BEGIN YOUR ASSIGNMENT HERE:
+
+% Question 1
+\newquestion{1}
+
+\noindent Example of proper typesetting of quotation marks:\\
+``proper opening and closing quotation marks'' vs "bad quotation marks".
+
+% Question 2
+\newquestion{2}
+
+Example of how to typeset and submit code in Latex:
+\begin{lstlisting}[language=R, frame=single]
+#EXAMPLE R CODE
+x <- c(1,2,3)
+\end{lstlisting}
+
+
+\end{document}
