@@ -41,7 +41,7 @@ check_image <- function(type, file_name) {
         print("With Confidence:")
         print(pred[1, 2])
     } else if (pred[1, 2] < 0.50) {
-        print("Predicted Type: 'dandelion'")
+        print("Predicted Type: dandelions")
         print("With Confidence:")
         print(pred[1, 1])
     } else {
