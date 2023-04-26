@@ -55,7 +55,7 @@ showstringspaces=false
 \begin{center}
 \Huge{{\bf IE332 Project \#2}} % <-- replace with correct assignment #
 
-Due: Month Date th, 11:59pm EST % <-- replace with correct due date and time
+Due: April 28th, 11:59pm EST % <-- replace with correct due date and time
 \end{center}
 
 \vspace{0.3in}
@@ -72,8 +72,8 @@ Accountable together -- we are Purdue.''}
 \begin{table}[h!]
   \begin{center}
     \label{tab:table1}
-    \begin{tabular}{c|ccccc|c|c}
-      Student & Q1 & Q2 & Q3 & Q4 & Q5 & Overall & DIFF\\
+    \begin{tabular}{c|m{5em}m{5em}m{5em}m{5em}m{4em}|c|c}
+      Student & Algorithm Development & Complexity Analysis & Implementation & Performance Analysis/Testing & A5 & Report & Overall & DIFF\\
       \hline
       Annie Zhang & 10 & 60 & 10 & 10 & 10 & 100 & 0\\
       Caroline Cudney & 10 & 10 & 60 & 10 & 60 & 100 & 0\\
@@ -142,21 +142,123 @@ Accountable together -- we are Purdue.''}
 \addtodo
 
 % BEGIN YOUR ASSIGNMENT HERE:
+\newquestion{Table of Contents}
 
-% Question 1
-\newquestion{1}
+%TABLE OF CONTENTS
+\tableofcontents
 
-\noindent Example of proper typesetting of quotation marks:\\
-``proper opening and closing quotation marks'' vs "bad quotation marks".
+%MAIN TEXT OF REPORT
+\pagebreak
+\newquestion{Report}
+\section{Background}
+Binary classifiers are a type of supervised machine learning algorithms that are used to split objects into one of two groups or classes. They are often used in medical evaluations when diagnosing a patient as positive or negative and have other applications including email spam and quality assurance. The binary classifier for this project focuses on identifying whether images were showing dandelions or just grass by computing a percentage. The code outputs two separate percents per image. The first percent is the amount it predicts that the image is a dandelion, and the second percent is the amount the algorithm predicts the image is of grass. If it is over 50 for the first percent, then the algorithm declares that the image is of dandelions, otherwise it says it is grass because the second percent would then be over 50. The goal of the project is to implement algorithms before running the binary classifier that are adversarial attacks altering the images to fool it, so the classifier always identifies the image as grass even when that isn't true. The adversarial attacks add noise to the images, but the noise shouldn't disrupt the image to the extent that the viewer also can't tell what it is or classify it correctly. An example image is shown below.\\
+\begin{center}
+\includegraphics[scale=.75]{attackidea.png}\\
+\end{center}
+Adversarial attacks can be problematic in the real world because they affect the validity and usefulness of classifiers. The attacks alter the results decreasing the accuracy and causing incorrect conclusions that can be harmful, especially depending on the initial use of the classifier. It may flag an important email as spam, let a faulty product be sold, or cause a patient to receive proper care. Understanding and being able to recognize and avoid adversarial attacks can help to ensure that classifiers are able to appropriately and accurately do their job. They can be combated by using detectors or separate models rejecting adversarial examples. One can also implement preprocessing, denoising, and principal component analysis. Lastly, to fight adversarial attacks, adversarial training can be used, which is training with adversarial examples, so the model is more prepared, \\
+There are white box and black box adversarial attacks both working to fool neural networks into making incorrect conclusions by adding noise, but white box attacks allow for complete access to the architecture, input, and output of the model while black box only allows access to the model input and output. The different attack types employed in this project were found through researching and comparing. In the end, five algorithms were chosen including FGSM, DeepFool, Partcile Swarm, CW, and PGD. These use different approaches of adding noise including finding and applying the smallest possible perturbations as well as taking small gradient steps. Other potential algorithms that could have been used include hill climbing or simulated annealing. \\
+The different algorithms were then coded into R and placed into the given code for the model to be tested and analyzed. The algorithms were tried individually then combined and weighted to be tested together. The rest of the report after detailing the different algorithms shows the testing, correctness, verification, computation complexity with run time and walltime, and overall performance. \\
+https://viso.ai/deep-learning/adversarial-machine-learning/
+https://deepchecks.com/glossary/binary-classification/ - info 
+\addcontentsline{toc}{section}{Algorithm 1}
+\section*{Algorithm 1}
+FGSM Algorithm\\
+The fast gradient sign method is a white box attack with a goal of misclassification. It calculates the losses after forward propagation, then calculates the gradient with respect to the image pixels, and finally adjusts the pixels of the images slightly in the direction of the gradients maximizing the loss. \\
+https://neptune.ai/blog/adversarial-attacks-on-neural-networks-exploring-the-fast-gradient-sign-method 
+https://neptune.ai/blog/adversarial-attacks-on-neural-networks-exploring-the-fast-gradient-sign-method
+\addcontentsline{toc}{section}{Algorithm 2}
+\section*{Algorithm 2}
+DeepFool Algorithm\\
+This algorithm is a type of white box attack algorithm that adds the minimum necessary perturbations to an image that will change the classification label. The pseudocode for the algorithm can be seen below. \\
+\includegraphics[scale=.5]{deepfoolpseudo.png} \\
+https://towardsdatascience.com/deepfool-a-simple-and-accurate-method-to-fool-deep-neural-networks-17e0d0910ac0
+https://medium.com/machine-intelligence-and-deep-learning-lab/a-review-of-deepfool-a-simple-and-accurate-method-to-fool-deep-neural-networks-b016fba9e48e
+https://www.crcv.ucf.edu/wp-content/uploads/2018/11/Lecture-3-DeepFool.pdf
+https://ebezzam.github.io/pdf/lts4_semester_project_eric_bezzam.pdf
 
-% Question 2
-\newquestion{2}
+\addcontentsline{toc}{section}{Algorithm 3}
+\section*{Algorithm 3}
+Particle Swarm Optimization\\
+This particle swarm optimization algorithm operates by finding the local optima and changing them until the classifier can be successfully fooled. The pseudocode for this algorithm is displayed below. \\
+\includegraphics[scale=.5]{particleswarmpseudo.png} \\
+https://www.researchgate.net/figure/Pseudocode-of-standard-particle-swarm-optimization_fig1_323281605
+https://rpubs.com/argaadya/intro-pso
+https://www.analyticsvidhya.com/blog/2021/10/an-introduction-to-particle-swarm-optimization-algorithm/
 
-Example of how to typeset and submit code in Latex:
+\addcontentsline{toc}{section}{Algorithm 4}
+\section*{Algorithm 4}
+CW Algorithm\\
+The Carlini Wagner algorithm is an iterative attack adding perturbations to increase the chance that the image is incorrectly classified. \\
+https://www.skillsire.com/read-blog/359_a-overview-on-adversarial-attacks-and-defenses.html
+\addcontentsline{toc}{section}{Algorithm 5}
+\section*{Algorithm 5}
+PGD Algorithm \\
+Projected gradient descent is an algorithm similar to FGSM; however, it calculates a new gradient each iteration with smaller perturbations helping to choose a more ideal stepping size for the attack. \\
+https://www.skillsire.com/read-blog/359_a-overview-on-adversarial-attacks-and-defenses.html
+
+% Testing/Correctness/Verification
+\section{Testing/Correctness/Verification}
+Each algorithm was tested, analyzed for correctness, and verified to ensure it was properly functioning.
+\addcontentsline{toc}{section}{Algorithm 1}
+\section*{Algorithm 1}
+\addcontentsline{toc}{section}{Algorithm 2}
+\section*{Algorithm 2}
+\addcontentsline{toc}{section}{Algorithm 3}
+\section*{Algorithm 3}
+\addcontentsline{toc}{section}{Algorithm 4}
+\section*{Algorithm 4}
+\addcontentsline{toc}{section}{Algorithm 5}
+\section*{Algorithm 5}
+
+
+\section{Runtime Complexity and Walltime}
+Runtime complexity analyzes the computational complexity of an algorithm to develop an idea of how long it will take to run based on a function for the input size n. For this, the input n would be the number of iterations determined by the number of pixels the algorithm must change before the classifier is finally fooled. Walltime is the actual numerical time the algorithm took when running calculated by a clock.
+\\
+A lower runtime and walltime is preferred because it is not convenient nor efficient to have to wait long periods of time for an output. There is usually a tradeoff in complexity and runtime, especially when considering the number of iterations, so it is important to consider this when developing algorithms. The amount of time can also depend on the technology one is using, so investing in better, more advanced technology may be helpful in reducing the wait time and allow for more complex algorithms to take less time. \\
+\addcontentsline{toc}{section}{Algorithm 1}
+\section*{Algorithm 1}
+\addcontentsline{toc}{section}{Algorithm 2}
+\section*{Algorithm 2}
+\addcontentsline{toc}{section}{Algorithm 3}
+\section*{Algorithm 3}
+\addcontentsline{toc}{section}{Algorithm 4}
+\section*{Algorithm 4}
+\addcontentsline{toc}{section}{Algorithm 5}
+\section*{Algorithm 5}
+
+
+\section{Performance}
+The overall performance of the algorithms was analyzed to see how well they worked and their efficiency. It is important that 
+\addcontentsline{toc}{section}{Algorithm 1}
+\section*{Algorithm 1}
+\addcontentsline{toc}{section}{Algorithm 2}
+\section*{Algorithm 2}
+\addcontentsline{toc}{section}{Algorithm 3}
+\section*{Algorithm 3}
+\addcontentsline{toc}{section}{Algorithm 4}
+\section*{Algorithm 4}
+\addcontentsline{toc}{section}{Algorithm 5}
+\section*{Algorithm 5}
+
+
 \begin{lstlisting}[language=R, frame=single]
-#EXAMPLE R CODE
+#Algorithm 1
 x <- c(1,2,3)
 \end{lstlisting}
-
-
+\begin{lstlisting}[language=R, frame=single]
+#Algorithm 2
+x <- c(1,2,3)
+\end{lstlisting}
+\begin{lstlisting}[language=R, frame=single]
+#Algorithm 3
+x <- c(1,2,3)
+\end{lstlisting}
+\begin{lstlisting}[language=R, frame=single]
+#Algorithm 4
+x <- c(1,2,3)
+\end{lstlisting}
+\begin{lstlisting}[language=R, frame=single]
+#Algorithm 5
+x <- c(1,2,3)
+\end{lstlisting}
 \end{document}
