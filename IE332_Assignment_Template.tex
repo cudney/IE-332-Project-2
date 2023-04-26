@@ -19,6 +19,7 @@
 \newcommand{\HREF}[2]{\href{#1}{#2}}
 \usepackage{textcomp}
 \usepackage{listings}
+\usepackage{array}
 \lstset{
 basicstyle=\small\ttfamily,
 % columns=flexible,
@@ -72,8 +73,8 @@ Accountable together -- we are Purdue.''}
 \begin{table}[h!]
   \begin{center}
     \label{tab:table1}
-    \begin{tabular}{c|m{5em}m{5em}m{5em}m{5em}m{4em}|c|c}
-      Student & Algorithm Development & Complexity Analysis & Implementation & Performance Analysis/Testing & A5 & Report & Overall & DIFF\\
+    \begin{tabular}{c| m{5em} m{5em} m{5em} m{5em} m{3em} |c|c}
+      Student & Algorithm Development & Complexity Analysis & Implemen-tation & Performance Analysis/Testing & Report & Overall & DIFF\\
       \hline
       Annie Zhang & 10 & 60 & 10 & 10 & 10 & 100 & 0\\
       Caroline Cudney & 10 & 10 & 60 & 10 & 60 & 100 & 0\\
@@ -212,9 +213,9 @@ Each algorithm was tested, analyzed for correctness, and verified to ensure it w
 
 
 \section{Runtime Complexity and Walltime}
-Runtime complexity analyzes the computational complexity of an algorithm to develop an idea of how long it will take to run based on a function for the input size n. For this, the input n would be the number of iterations determined by the number of pixels the algorithm must change before the classifier is finally fooled. Walltime is the actual numerical time the algorithm took when running calculated by a clock.
+Runtime complexity analyzes the computational complexity of an algorithm to develop an idea of how long it will take to run based on a function for the input size n. For this, the input n would be the number of iterations determined by the number of pixels the algorithm must change before the classifier is finally fooled. The functions can include using Big-Oh, Big-Omega, and Big-Theta as models. Big-Oh focuses on creating an upper bound function, Big-Omega focuses on creating a lower bound function, and lastly Big-Theta makes a tight bound with one function being implemented as a lower and upper bound depending on the constant. Walltime is the actual numerical time the algorithm took when running calculated by a clock.
 \\
-A lower runtime and walltime is preferred because it is not convenient nor efficient to have to wait long periods of time for an output. There is usually a tradeoff in complexity and runtime, especially when considering the number of iterations, so it is important to consider this when developing algorithms. The amount of time can also depend on the technology one is using, so investing in better, more advanced technology may be helpful in reducing the wait time and allow for more complex algorithms to take less time. \\
+A lower runtime and walltime is preferred because it is not convenient nor efficient to have to wait long periods of time for an output; however, there is usually a tradeoff in complexity and runtime, especially when considering the number of iterations. This tradeoff is important to consider when developing and implementing different algorithms. The amount of time can also depend on the technology one is using, so investing in better, more advanced technology may be helpful in reducing the wait time and allow for more complex algorithms to take less time.\\
 \addcontentsline{toc}{section}{Algorithm 1}
 \section*{Algorithm 1}
 \addcontentsline{toc}{section}{Algorithm 2}
