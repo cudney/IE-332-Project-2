@@ -210,15 +210,17 @@ Projected gradient descent (PGD) is an algorithm similar to FGSM; however, it ca
 
 \addcontentsline{toc}{section}{Alternate Approaches}
 \section*{Alternate Approaches}
-The adversarial attacks were understood and our group worked to implement them; however, despite finding Python code, no R code was found. We worked to translate the code we found into R but encountered numerous problems. As a result, we developed new algorithms that change a larger portion of the image to fool the binary classifier. \\
+The adversarial attacks were understood and our group worked to implement them; however, despite finding multiple Python codes, no R code was found. We worked to then translate the code we found into R but encountered numerous problems with finding similar packages and functions. As a result, we developed new algorithms that change a larger portion of the image in an attempt to have a working solution that can fool the binary classifier. These were written utilizing different functions made possible from R packages, specifically magick.\\
 \noindent{\bf Alternate Algorithm 1 - Grayscale}\\
-This converts the colored image into grayscale, which is purely a black, gray, and white image, which helped to fool the binary classifier. \\
+This converts the colored image into grayscale, which is a black, gray, and white image, which helped to fool the binary classifier since it dulled the image. The image\_colorize function with the "gray" constraint was able to do this. \\
 \noindent{\bf Alternate Algorithm 2 - Noise}\\
-This approach added noise to the image. \\
+This approach added noise to the image. Our group used the image\_noise function in R with "gaussian" as the noise type constraint. \\
 \noindent{\bf Alternate Algorithm 3 - Coloring}\\
-For this method, the images were tinted blue, a color that matched neither class. This attempt was made to trick the classifier into incorrectly classifying the image. \\
+For this method, the images were tinted red, a color that matched neither class. This attempt was made to trick the classifier into incorrectly classifying the images. This was completed using the image\_colorize R function with constraints of color and opacity.\\
 \noindent{\bf Alternate Algorithm 4 - Blurring}\\
-This approach blurred the image to try and reduce the confidence of the classifier and ultimately fool it. 
+This approach blurred the image to try and reduce the confidence of the classifier and ultimately fool it. This used the image\_blur R function, which has inputs of the image, radius, and sigma.\\
+\noindent{\bf Alternate Algorithm 5 - Embossing}\\
+Embossing an image replaces pixels with dark or light colors depending on the surroundings. This was implemented using the image\_emboss function in R, which takes in an image, radius, and sigma.\\
 
 % Testing/Correctness/Verification
 \section{Testing/Correctness/Verification}
@@ -226,22 +228,27 @@ Each algorithm was tested, analyzed for correctness, and verified to ensure it w
 \addcontentsline{toc}{section}{Adversarial Attacks}
 \section*{Adversarial Attacks}
 \noindent{\bf Algorithm 1 - Fast Gradient Sign Method}\\
+The main idea of the Fast Gradient Sign Method (FGSM) is to use the gradient to create perturbation and then add it back to the original image with a certain $\epsilon$. \\
 \noindent{\bf Algorithm 2 - DeepFool}\\
 For the DeepFool algorithm, the loop invariant statement is the perturbation. The perturbation is initially 0, and there is no noise to be applied to the initial image to create the new image that will later fool the classifier. The while loop then starts under the condition that each part and pixel of the initial image matches the new image. This is checked and if it is true, the perturbation is calculated and applied. It continues to iterate this i number of times with calculating and applying the new perturbation of each part of the image corresponding to i until the entire initial image has been processed and new image developed. The loop will then terminate and returns the sum of i perturbations with a new image that has the perturbations applied causing it to fool the classifier.\\
 \noindent{\bf Algorithm 3 - Particle Swarm Optimization}\\
+The loop invariant for PSO there are multiple loops. For the first loop the invariant is that the minimum is located and stored. It starts with an initialized function of values, checks if the next function has values smaller, and if so it sets that minimum value of that function as the comparator. This loop is continued through the entire population then terminates ensuring that all of the local minimum are found and recorded. The next loop is focused on applying the noise to alter the image at the local minimum. The loop invariant is the image alteration. The loop starts with the initial image and goes through the entire dimensions appropriately applying values to the different image parts and pixels based on the different conditions. This continues until it terminates once the entire image is altered as needed.\\
 \noindent{\bf Algorithm 4 - Carlini Wagner}\\
 \noindent{\bf Algorithm 5 - Projected Gradient Descent}\\
-The loop invariant for PGD there are multiple loops. For the first loop the invariant is that the minimum is located and stored. It starts with an initialized function of values, checks if the next function has values smaller, and if so it sets that minimum value of that function as the comparator. This loop is continued through the entire population then terminates ensuring that all of the local minimum are found and recorded. The next loop is focused on applying the noise to alter the image at the local minimum. The loop invariant is the image alteration. The loop starts with the initial image and goes through the entire dimensions appropriately applying values to the different image parts and pixels based on the different conditions. This continues until it terminates once the entire image is altered as needed.
+
 \addcontentsline{toc}{section}{Alternate Approaches}
 \section*{Alternate Approaches}
+Each of these used built-in functions from the R package magick, so there is no loop for us to find the invariant and check correctness. Testing was able to be completed by running each function and analyzing the outputs. Verification was done by ensuring it matched the goals set. 
 \noindent{\bf Alternate Algorithm 1 - Grayscale}\\
-
+This successfully applied gray to the image dulling it, which was the goal. It does affect the entire image rather than 10 percent and helps to fool the image classifier on certain cases.
 \noindent{\bf Alternate Algorithm 2 - Noise}\\
-
+Noise is correctly added to each image and the amount can be set to match the 10 percent constraint provided. While it has helped to fool the classifier in many cases, it doesn't have 100 percent accuracy in fooling it. \\
 \noindent{\bf Alternate Algorithm 3 - Coloring}\\
-
+The image receives a red tint when this function is applied like intended. This again affects the whole image rather than 10 percent but yielded a good proportion of fooling with the images.\\
 \noindent{\bf Alternate Algorithm 4 - Blurring}\\
-
+Blurring is applied to the entire image appropriately; however, this doesn't match the entirety of the project's constraints. \\
+\noindent{\bf Alternate Algorithm 5 - Embossing}\\
+Each image is embossed when this function is run on it. This could be set to 10 percent of the image; however, doesn't fool the classifier in every case like hoped. \\
 \section{Runtime Complexity and Walltime}
 Runtime complexity analyzes the computational complexity of an algorithm to develop an idea of how long it will take to run based on a function for the input size n. For this, the input n would be the number of iterations determined by the number of pixels the algorithm must change before the classifier is finally fooled. The functions can include using Big-Oh, Big-Omega, and Big-Theta as models. Big-Oh focuses on creating an upper bound function, Big-Omega focuses on creating a lower bound function, and lastly Big-Theta makes a tight bound with one function being implemented as a lower and upper bound depending on the constant. Walltime is the actual numerical time the algorithm took when running calculated by a clock.
 \\
@@ -259,13 +266,15 @@ Unfortunately, since we were unable to get adversarial attacks working, we were 
 
 \noindent{\bf Alternate Algorithm 4 - Blurring}\\
 
+\noindent{\bf Alternate Algorithm 5 - Embossing}\\
+
 
 \section{Performance}
 The overall performance of the algorithms was analyzed using the outputs, runtime, and walltime to see how well they worked and their overall efficiency. It combines both the testing/correctness/verifcation and runtime complexity and walltime. Performance is important in determining which methods to implement and develop the weighted algorithm.\\
 There tends to be tradeoffs with performance, which we addressed briefly in the last section. Increasing complexity may help to improve correctness; however, it may take longer time to run. Performance of algorithms also depend on other factors. Again, the technology used plays a part in efficiency. The models that are analyzed can also determine performance, as training data size can affect fitting, which may help or hinder performance. Using too much training data may cause overfitting, as it becomes too specific to that data. On the other end, using too little data can lead to underfitting because the model can't gather enough information to make strong predictions. It is important to understand these concepts when developing models and algorithms to ensure they perform well. \\
 \addcontentsline{toc}{section}{Adversarial Attacks}
 \section*{Adversarial Attacks}
-Unfortunately, since we were unable to get adversarial attacks working, we were also not able to evaluate their performance. We would assume these attacks would work well in fooling the classifier because of the extensive information and feedback on them from others.
+Unfortunately, since we were unable to get adversarial attacks working, we were also not able to evaluate their performance. We would assume these attacks would work well in fooling the classifier if they had been fully developed because of the extensive information and feedback on them from others. There are also videos and papers online showing them implemented and working, so we know that the logic works and can be applied to successfully fool classifiers. \\
 \addcontentsline{toc}{section}{Alternate Approaches}
 \section*{Alternate Approaches}
 \noindent{\bf Alternate Algorithm 1 - Grayscale}\\
@@ -275,13 +284,72 @@ Unfortunately, since we were unable to get adversarial attacks working, we were 
 \noindent{\bf Alternate Algorithm 3 - Coloring}\\
 
 \noindent{\bf Alternate Algorithm 4 - Blurring}\\
+\noindent{\bf Alternate Algorithm 5 - Embossing}\\
 
+\pagebreak
+\newquestion{References}
+\section{References}
 
-
+%APPENDIX
+\pagebreak
+\newquestion{Appendices}
+\section{Appendix}
+\addcontentsline{toc}{section}{Challenges}
+\section*{Challenges}
+The main challenges faced were successfully implementing the found adversarial attacks. After our research, we worked to develop these into working codes to later be applied to images; however, due to lack of knowledge and experience in R and limited time, we couldn't complete this. We continued to familiarize ourselves with these algorithms and share them to be used in the future and instead tried new approaches that are more drastic. These included changing color and resolution of the images to fool the classifier. With these algorithms, it was difficult to adhere to only changing 10 percent of pixels. As a result, we worked to limit their affects on the overall image as a compromise. \\
+In the end, we put our focus on the report with showing our knowledge, process, and work. We gave background and guidance on implementing the traditional adversarial attacks as well as included the information and code for the alternate algorithms in R that we were able to apply. \\
+\addcontentsline{toc}{section}{Algorithms}
+\section*{Algorithms}
 
 \begin{lstlisting}[language=R, frame=single]
 #FGSM Algorithm
-x <- c(1,2,3)
+FGSM <- function(type, file_name, epsilon){
+  
+  #load model
+  model2 <- keras::application_mobilenet_v2(weights = "imagenet")
+  knitr::knit_engines$set(python = reticulate::eng_python) 
+  
+  # Preprocess input data
+  x <- image_load(paste("./test_photos/",type,"/",file_name,".jpg",sep = ""), target_size = c(224, 224))
+  x <- image_to_array(x)
+  x <- array_reshape(x, c(1, dim(x)))
+  x <- tf$convert_to_tensor(x, dtype = "float32") #change x to tensor
+  
+  # Predict first using the model
+  pred <- model2(x)
+  pred_shape <- tf$shape(pred)
+  pred <- tf$cast(pred, "float32")
+  
+  #label
+  labrador_retriever_index <- 208
+  label <- k_one_hot(as.integer(labrador_retriever_index), tf$shape(pred)[-1])
+  label <- tf$reshape(label, shape = c(as.integer(1), tf$shape(pred)[-1]))
+  
+  #get the gradient
+  with(tf$GradientTape() %as% tape, {
+    tape$watch(x)
+    pred <- model2(x)
+    loss <- k_categorical_crossentropy(label, pred)
+    grads <- tape$gradient(loss,x)
+  })
+  
+  #get the sign of gradient
+  signed <- tf$sign(grads)
+  
+  #let's get the perturbations
+  perturbations <- signed
+  
+  #set the epsilons and add the perturbations
+  epsilon <- epsilon
+  adv_x <- x + epsilon * perturbations
+  
+  #plot image
+  adv_x_matrix <- matrix(adv_x, nrow=dim(adv_x)[1]*dim(adv_x)[2], ncol=dim(adv_x)[3])
+  adv_x_2d <- (adv_x_matrix * 0.5) + 0.5
+  par(mar=c(1,1,1,1))
+  a <- image(adv_x_2d)
+
+}
 \end{lstlisting}
 \begin{lstlisting}[language=Python, frame=single]
 #DeepFool Algorithm
@@ -379,9 +447,49 @@ tictoc::tic()
 psoptim(par = rep(NA,2), fn = fit_function, lower = c(1,1), upper = c(17, 128), 
         control = list(maxit = 1000, maxit.stagnate = 10, vectorize = T, s = 100))
 \end{lstlisting}
-\begin{lstlisting}[language=R, frame=single]
+\begin{lstlisting}[language=Python, frame=single]
 #CW Algorithm
-x <- c(1,2,3)
+from keras.models import Sequential
+from keras.layers import Input, Lambda,  Flatten
+
+batch_size = 1
+ 
+m = Sequential()
+
+# newInput expect an image ranging [-0.5,0.5] --> need to transform to our range: [0,1] by multipying all the values by 2
+m.add(Lambda(lambda x : x+0.5,name="rescaledm05p05",input_shape=(28,28,1)))
+
+## start from 1 because we want to use new Input layer 
+## end right before -1 because softmax should be removed. 
+for l in model_keras.layers[:-1]:
+    #print(l.name)
+    m.add(l)
+#m.add(Flatten())
+# https://github.com/keras-team/keras/issues/8909
+model_rescaled = m
+model_rescaled.summary()
+from nn_robust_attacks.l0_attack import CarliniL0
+# model must be tensorflow model model_tf = KerasModelWrapper(model.model)
+
+
+class ModelWrapper:
+    def __init__(self,keras_model,num_labels=10):
+        self.model = keras_model
+        self.num_channels = self.model.input_shape[-1]
+        self.image_size = self.model.input_shape[1] ## assume height = width
+        self.num_labels = num_labels
+    def predict(self, data):
+        return self.model(data)        
+
+num_classes = 10   
+model_attack = ModelWrapper(model_rescaled,num_classes) 
+attack = CarliniL0(sess,model_attack,
+                   ## learning rate needed to be reduced from default for mobilenet
+                   learning_rate = 0.01,
+                   targeted=True,
+                   max_iterations=10000, 
+                   initial_const=10,
+                   largest_const=15)
 \end{lstlisting}
 \begin{lstlisting}[language=Python, frame=single]
 #PGD Algorithm
@@ -443,6 +551,138 @@ x_adv = x_adv.clamp(*clamp)
 
 return x_adv.detach()
 \end{lstlisting}
+\begin{lstlisting}[language = R, frame=single]
+#Alternate Algorithm
+# Load packages
+library(tidyverse)
+library(keras)
+library(tensorflow)
+library(reticulate)
+library(R6)
+
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+
+# Image class
+Image <- R6Class("Image",
+    public = list(
+        type = NULL,
+        file_name = NULL,
+        original_path = NULL,
+        test_path = NULL,
+        img = NULL,
+
+        # constructor
+        initialize = function(type, file_name) {
+            self$type <- type
+            self$file_name <- file_name
+            self$original_path <- paste("./original_photos/", type, "/", file_name, sep = "")
+            self$test_path <- paste("./test_photos/", type, "/", file_name, sep = "")
+        },
+
+        # open test image
+        open_test = function() {
+            system(paste("open 'test_photos/", self$type, "/", self$file_name, "'", sep = ""))
+        },
+        open_original = function() {
+            system(paste("open 'original_photos/", self$type, "/", self$file_name, "'", sep = ""))
+        },
+
+        # function to check if an image is a dandelion or grass
+        check = function() {
+            test_image <- image_load(self$test_path, target_size = c(224, 224))
+            x <- image_to_array(test_image)
+            x <- array_reshape(x, c(1, dim(x)))
+            x <- x / 255
+            pred <- model %>% predict(x)
+
+            print(paste("File Name:", self$file_name))
+            print(paste("Actual Type:", self$type))
+            if (pred[1, 1] < 0.50) {
+                print("Predicted Type: 'grass'")
+                print("With Confidence:")
+                print(pred[1, 2])
+            } else if (pred[1, 2] < 0.50) {
+                print("Predicted Type: dandelions")
+                print("With Confidence:")
+                print(pred[1, 1])
+            } else {
+                print("ERROR")
+            }
+        }
+    )
+)
+
+# initialize model
+model <- load_model_tf("./dandelion_model")
+
+# initialize vector of all test images
+all_images <- c()
+for (type in c("grass", "dandelions")) {
+    for (file in list.files(paste("./test_photos/", type, sep = ""))) {
+        all_images <- append(all_images, Image$new(type, file))
+    }
+}
+
+# function to reset test images
+reset_test_images <- function() {
+    source_folder <- "./original_photos"
+    destination_folder <- "./test_photos"
+
+    # Create destination folder if it doesn't exist
+    if (!dir.exists(destination_folder)) {
+        dir.create(destination_folder)
+    }
+
+    # Copy files from source to destination
+    for (f in list.files(source_folder)) {
+        file.copy(from = file.path(source_folder, f), to = destination_folder, overwrite = TRUE, recursive = TRUE)
+    }
+}
+
+# function to check test images
+check_test_images <- function() {
+    for (image in all_images) {
+        image$check()
+    }
+}
+
+# script
+reset_test_images()
+
+# algorithm
+library(magick)
+
+launch_attack <- function(weights = c(0.2, 0.2, 0.2, 0.2, 0.2)) {
+    for (image in all_images) {
+        img <- image_read(image$original_path)
+
+        # add color filter
+        img <- image_colorize(img, weights[1] * 50, "red")
+
+        # add grayscale filter
+        img <- image_colorize(img, weights[2] * 50, "gray")
+
+        # add noise
+        img <- image_noise(img, "gaussian")
+
+        # add blur
+        img <- image_blur(img, 25, 2)
+
+        # add emboss
+        img <- image_emboss(img, 25, 2)
+
+        # save image
+        image_write(img, image$test_path)
+        print(paste("Modified Image:", image$file_name))
+    }
+}
+
+launch_attack()
+
+# check results
+check_test_images()
+    
+\end{lstlisting}
 \end{document}
 
 #Deepfool
@@ -465,6 +705,7 @@ https://www.analyticsvidhya.com/blog/2021/10/an-introduction-to-particle-swarm-o
 
 #CW
 https://www.skillsire.com/read-blog/359_a-overview-on-adversarial-attacks-and-defenses.html
+https://fairyonice.github.io/Learn-the-Carlini-and-Wagners-adversarial-attack-MNIST.html
 
 #Run Time
 https://viso.ai/deep-learning/adversarial-machine-learning/
