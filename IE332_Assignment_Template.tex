@@ -159,64 +159,62 @@ Binary classifiers are a type of supervised machine learning algorithms that are
 \includegraphics[scale=.75]{attackidea.png}\\
 \end{center}
 The different algorithms were then coded into R and placed into the given code for the model to be tested and analyzed. The algorithms were tried individually then combined and weighted to be tested together. The rest of the report after detailing the different algorithms shows the testing, correctness, verification, computation complexity with run time and walltime, and overall performance. \\
-https://viso.ai/deep-learning/adversarial-machine-learning/
-https://deepchecks.com/glossary/binary-classification/ - info 
+
 \addcontentsline{toc}{section}{Adversarial Attacks}
 \section*{Adversarial Attacks}
 As stated previously, adversarial attacks alter images by adding noise to fool classifiers. They can be problematic in the real world because they affect the validity and usefulness of classifiers. The attacks alter the results decreasing the accuracy and causing incorrect conclusions that can be harmful, especially depending on the initial use of the classifier. It may flag an important email as spam, let a faulty product be sold, or cause a patient to receive proper care. Understanding and being able to recognize and avoid adversarial attacks can help to ensure that classifiers are able to appropriately and accurately do their job. They can be combated by using detectors or separate models rejecting adversarial examples. One can also implement preprocessing, denoising, and principal component analysis. Lastly, to fight adversarial attacks, adversarial training can be used, which is training with adversarial examples, so the model is more prepared. \\
 There are white box and black box adversarial attacks both working to fool neural networks into making incorrect conclusions by adding noise, but white box attacks allow for complete access to the architecture, input, and output of the model while black box only allows access to the model input and output. The different attack types employed in this project were found through researching and comparing. In the end, five algorithms were chosen including FGSM, DeepFool, Particle Swarm, CW, and PGD. These use different approaches of adding noise including finding and applying the smallest possible perturbations as well as taking small gradient steps. Other potential algorithms that could have been used include hill climbing or simulated annealing. \\
 \noindent{\bf Algorithm 1 - Fast Gradient Sign Method}\\
 The fast gradient sign method (FGSM) is a white box attack with a goal of misclassification. It calculates the losses after forward propagation, then calculates the gradient with respect to the image pixels, and finally adjusts the pixels of the images slightly in the direction of the gradients maximizing the loss. The image below shows the potential output of this kind of attack.\\
+
 \begin{center}
+\includegraphics[scale=.45]{FGSMpseudo.png}\\
+\caption{Figure 1: The figure above is pseudocode for the FGSM adversarial attack.}\\
 \includegraphics[scale=.75]{FGSM.png}\\
+\caption{Figure 2: The image above is an example application of an FGSM attack.}\\
 \end{center}
-https://neptune.ai/blog/adversarial-attacks-on-neural-networks-exploring-the-fast-gradient-sign-method 
-https://neptune.ai/blog/adversarial-attacks-on-neural-networks-exploring-the-fast-gradient-sign-method\\
+
 \noindent{\bf Algorithm 2 - DeepFool}\\
 This algorithm is a type of white box attack algorithm that adds the minimum necessary perturbations to an image that will change the classification label. The pseudocode for the algorithm as well as an example case can be seen below. \\
+
 \begin{center}
 \includegraphics[scale=.5]{deepfoolpseudo.png} \\
+\caption{Figure 3: The figure above is pseudocode for the DeepFool adversarial attack.}\\
 \includegraphics[scale=.75]{deepf.png}\\
+\caption{Figure 4: The image above is an example application of a DeepFool attack.}\\
 \end{center}
-https://towardsdatascience.com/deepfool-a-simple-and-accurate-method-to-fool-deep-neural-networks-17e0d0910ac0
-https://medium.com/machine-intelligence-and-deep-learning-lab/a-review-of-deepfool-a-simple-and-accurate-method-to-fool-deep-neural-networks-b016fba9e48e
-https://www.crcv.ucf.edu/wp-content/uploads/2018/11/Lecture-3-DeepFool.pdf
-https://ebezzam.github.io/pdf/lts4_semester_project_eric_bezzam.pdf
 
 \noindent{\bf Algorithm 3 - Particle Swarm Optimization}\\
 This particle swarm optimization (PSO) algorithm operates by finding the local optima and changing them until the classifier can be successfully fooled. The pseudocode and possible run for this algorithm is displayed below.\\
 \begin{center}
 \includegraphics[scale=.5]{particleswarmpseudo.png} \\
+\caption{Figure 5: The figure above is pseudocode for the PSO adversarial attack.}\\
 \end{center}
-https://www.researchgate.net/figure/Pseudocode-of-standard-particle-swarm-optimization_fig1_323281605
-https://rpubs.com/argaadya/intro-pso
-https://www.analyticsvidhya.com/blog/2021/10/an-introduction-to-particle-swarm-optimization-algorithm/
 
 \noindent{\bf Algorithm 4 - Carlini Wagner}\\
 The Carlini Wagner (CW) algorithm is an iterative attack adding perturbations to increase the chance that the image is incorrectly classified. A potential application of the algorithm can be viewed below.\\
 \begin{center}
 \includegraphics[scale=.75]{CW.png} \\
+\caption{Figure 6: The image above is an example application of a CW attacks.}
 \end{center}
-https://www.skillsire.com/read-blog/359_a-overview-on-adversarial-attacks-and-defenses.html
-
 
 \noindent{\bf Algorithm 5 - Projected Gradient Descent}\\
 Projected gradient descent (PGD) is an algorithm similar to FGSM; however, it calculates a new gradient each iteration with smaller perturbations helping to choose a more ideal stepping size for the attack. An example output is depicted below.\\
 \begin{center}
 \includegraphics[scale=.65]{PGDpseudo.png} 
 \includegraphics[scale=.54]{PGDpseudo2.png} \\
+\caption{Figure 7: The figure above is different pseudocode for the PGD adversarial attack.}\\
 \includegraphics[scale=.75]{PGD.png} \\
+\caption{Figure 8: The image above is an example application of a PGD attack.} 
 \end{center}
-https://www.skillsire.com/read-blog/359_a-overview-on-adversarial-attacks-and-defenses.html
-file:///C:/Users/ccook/Downloads/Lec-Models-from-Data_Part%20I_%20Projections%20-PGraDescent%202.pdf
-https://www.google.com/search?q=pseudocode+for+pgd+algorithm&rlz=1C1UEAD_enUS1046US1046&sxsrf=APwXEdeZYouL7qb_KdHxZA3MeNsuFciXbw:1682641181340&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiasJfvpsv-AhXbkokEHfOmCnoQ0pQJegQIBBAC&biw=1536&bih=746&dpr=1.25#imgrc=OIXv_z01BE3vAM&imgdii=g321OUOe9UuBkM \\
+
 \addcontentsline{toc}{section}{Alternate Approaches}
 \section*{Alternate Approaches}
 The adversarial attacks were understood and our group worked to implement them; however, despite finding Python code, no R code was found. We worked to translate the code we found into R but encountered numerous problems. As a result, we developed new algorithms that change a larger portion of the image to fool the binary classifier. \\
 \noindent{\bf Alternate Algorithm 1 - Grayscale}\\
 This converts the colored image into grayscale, which is purely a black, gray, and white image, which helped to fool the binary classifier. \\
-\noindent{\bf Alternate Algorithm 2 - Vertical Flip}\\
-This approach flipped the image vertically. \\
+\noindent{\bf Alternate Algorithm 2 - Noise}\\
+This approach added noise to the image. \\
 \noindent{\bf Alternate Algorithm 3 - Coloring}\\
 For this method, the images were tinted blue, a color that matched neither class. This attempt was made to trick the classifier into incorrectly classifying the image. \\
 \noindent{\bf Alternate Algorithm 4 - Blurring}\\
@@ -229,13 +227,20 @@ Each algorithm was tested, analyzed for correctness, and verified to ensure it w
 \section*{Adversarial Attacks}
 \noindent{\bf Algorithm 1 - Fast Gradient Sign Method}\\
 \noindent{\bf Algorithm 2 - DeepFool}\\
-For the deepfool algorithm, the loop invariant statement is the perturbation. The perturbation is initially 0, and there is no noise to be applied to the initial image to create the new image that will later fool the classifier. The while loop then starts under the condition that each part of the initial image matches the new image. This is checked and if it is true, the perturbation is calculated and applied. It continues to iterate this i number of times with calculating and applying the new perturbation of each part of the image corresponding to i until the entire image has been processed. The loop will then terminate and returns the sum of i perturbations with a new image that has the perturbations applied causing it to fool the classifier.
+For the DeepFool algorithm, the loop invariant statement is the perturbation. The perturbation is initially 0, and there is no noise to be applied to the initial image to create the new image that will later fool the classifier. The while loop then starts under the condition that each part and pixel of the initial image matches the new image. This is checked and if it is true, the perturbation is calculated and applied. It continues to iterate this i number of times with calculating and applying the new perturbation of each part of the image corresponding to i until the entire initial image has been processed and new image developed. The loop will then terminate and returns the sum of i perturbations with a new image that has the perturbations applied causing it to fool the classifier.\\
 \noindent{\bf Algorithm 3 - Particle Swarm Optimization}\\
 \noindent{\bf Algorithm 4 - Carlini Wagner}\\
 \noindent{\bf Algorithm 5 - Projected Gradient Descent}\\
+The loop invariant for PGD there are multiple loops. For the first loop the invariant is that the minimum is located and stored. It starts with an initialized function of values, checks if the next function has values smaller, and if so it sets that minimum value of that function as the comparator. This loop is continued through the entire population then terminates ensuring that at all points the updated minimum is kept. The next loop is focused on applying the noise to alter the image. The loop invariant is the image alteration. The loop starts with the initial image and goes through the entire dimensions appropriately applying values to the different image parts and pixels based on the different conditions. This continues until it terminates once the entire image is altered as needed.
 \addcontentsline{toc}{section}{Alternate Approaches}
 \section*{Alternate Approaches}
+\noindent{\bf Alternate Algorithm 1 - Grayscale}\\
 
+\noindent{\bf Alternate Algorithm 2 - Noise}\\
+
+\noindent{\bf Alternate Algorithm 3 - Coloring}\\
+
+\noindent{\bf Alternate Algorithm 4 - Blurring}\\
 
 \section{Runtime Complexity and Walltime}
 Runtime complexity analyzes the computational complexity of an algorithm to develop an idea of how long it will take to run based on a function for the input size n. For this, the input n would be the number of iterations determined by the number of pixels the algorithm must change before the classifier is finally fooled. The functions can include using Big-Oh, Big-Omega, and Big-Theta as models. Big-Oh focuses on creating an upper bound function, Big-Omega focuses on creating a lower bound function, and lastly Big-Theta makes a tight bound with one function being implemented as a lower and upper bound depending on the constant. Walltime is the actual numerical time the algorithm took when running calculated by a clock.
@@ -248,7 +253,7 @@ Unfortunately, since we were unable to get adversarial attacks working, we were 
 \section*{Alternate Approaches}
 \noindent{\bf Alternate Algorithm 1 - Grayscale}\\
 
-\noindent{\bf Alternate Algorithm 2 - Vertical Flip}\\
+\noindent{\bf Alternate Algorithm 2 - Noise}\\
 
 \noindent{\bf Alternate Algorithm 3 - Coloring}\\
 
@@ -264,7 +269,7 @@ Unfortunately, since we were unable to get adversarial attacks working, we were 
 \section*{Alternate Approaches}
 \noindent{\bf Alternate Algorithm 1 - Grayscale}\\
 
-\noindent{\bf Alternate Algorithm 2 - Vertical Flip}\\
+\noindent{\bf Alternate Algorithm 2 - Noise}\\
 
 \noindent{\bf Alternate Algorithm 3 - Coloring}\\
 
@@ -438,3 +443,28 @@ x_adv = x_adv.clamp(*clamp)
 return x_adv.detach()
 \end{lstlisting}
 \end{document}
+
+#Deepfool
+https://neptune.ai/blog/adversarial-attacks-on-neural-networks-exploring-the-fast-gradient-sign-method \\
+https://link.springer.com/chapter/10.1007/978-3-031-20500-2_1\\
+https://towardsdatascience.com/deepfool-a-simple-and-accurate-method-to-fool-deep-neural-networks-17e0d0910ac0
+https://medium.com/machine-intelligence-and-deep-learning-lab/a-review-of-deepfool-a-simple-and-accurate-method-to-fool-deep-neural-networks-b016fba9e48e
+https://www.crcv.ucf.edu/wp-content/uploads/2018/11/Lecture-3-DeepFool.pdf
+https://ebezzam.github.io/pdf/lts4_semester_project_eric_bezzam.pdf\\
+
+#PGD
+https://www.skillsire.com/read-blog/359_a-overview-on-adversarial-attacks-and-defenses.html
+file:///C:/Users/ccook/Downloads/Lec-Models-from-Data_Part%20I_%20Projections%20-PGraDescent%202.pdf
+https://www.google.com/search?q=pseudocode+for+pgd+algorithm&rlz=1C1UEAD_enUS1046US1046&sxsrf=APwXEdeZYouL7qb_KdHxZA3MeNsuFciXbw:1682641181340&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiasJfvpsv-AhXbkokEHfOmCnoQ0pQJegQIBBAC&biw=1536&bih=746&dpr=1.25#imgrc=OIXv_z01BE3vAM&imgdii=g321OUOe9UuBkM \\
+
+#Particle Swarm
+https://www.researchgate.net/figure/Pseudocode-of-standard-particle-swarm-optimization_fig1_323281605
+https://rpubs.com/argaadya/intro-pso
+https://www.analyticsvidhya.com/blog/2021/10/an-introduction-to-particle-swarm-optimization-algorithm/\\
+
+#CW
+https://www.skillsire.com/read-blog/359_a-overview-on-adversarial-attacks-and-defenses.html
+
+#Run Time
+https://viso.ai/deep-learning/adversarial-machine-learning/
+https://deepchecks.com/glossary/binary-classification/ - info 
