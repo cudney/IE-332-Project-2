@@ -163,7 +163,7 @@ The different algorithms were then coded into R and placed into the given code f
 \addcontentsline{toc}{section}{Adversarial Attacks}
 \section*{Adversarial Attacks}
 As stated previously, adversarial attacks alter images by adding noise to fool classifiers. They can be problematic in the real world because they affect the validity and usefulness of classifiers. The attacks alter the results decreasing the accuracy and causing incorrect conclusions that can be harmful, especially depending on the initial use of the classifier. It may flag an important email as spam, let a faulty product be sold, or cause a patient to receive proper care. Understanding and being able to recognize and avoid adversarial attacks can help to ensure that classifiers are able to appropriately and accurately do their job. They can be combated by using detectors or separate models rejecting adversarial examples. One can also implement preprocessing, denoising, and principal component analysis. Lastly, to fight adversarial attacks, adversarial training can be used, which is training with adversarial examples, so the model is more prepared. \\
-There are white box and black box adversarial attacks both working to fool neural networks into making incorrect conclusions by adding noise, but white box attacks allow for complete access to the architecture, input, and output of the model while black box only allows access to the model input and output. The different attack types employed in this project were found through researching and comparing. In the end, five algorithms were chosen including FGSM, DeepFool, Particle Swarm, CW, and PGD. These use different approaches of adding noise including finding and applying the smallest possible perturbations as well as taking small gradient steps. Other potential algorithms that could have been used include hill climbing or simulated annealing. \\
+There are white box and black box adversarial attacks both working to fool neural networks into making incorrect conclusions by adding noise, but white box attacks allow for complete access to the architecture, input, and output of the model while black box only allows access to the model input and output. The different attack types employed in this project were found through researching and comparing. In the end, five algorithms were chosen including FGSM, DeepFool, Particle Swarm, CW, and PGD. These use different approaches of adding noise including finding and applying the smallest possible perturbations as well as taking small gradient steps. They were chosen because of the large amount of information already existing on them and their success; however, other potential algorithms are also popular and could have been used include hill climbing or simulated annealing. \\
 \noindent{\bf Algorithm 1 - Fast Gradient Sign Method}\\
 The fast gradient sign method (FGSM) is a white box attack with a goal of misclassification. It calculates the losses after forward propagation, then calculates the gradient with respect to the image pixels, and finally adjusts the pixels of the images slightly in the direction of the gradients maximizing the loss. The image below shows the potential output of this kind of attack.\\
 
@@ -175,7 +175,7 @@ The fast gradient sign method (FGSM) is a white box attack with a goal of miscla
 \end{center}
 
 \noindent{\bf Algorithm 2 - DeepFool}\\
-This algorithm is a type of white box attack algorithm that adds the minimum necessary perturbations to an image that will change the classification label. The pseudocode for the algorithm as well as an example case can be seen below. \\
+This algorithm is a type of white box attack algorithm that adds the minimum necessary perturbations to an image that will lead to a change in the classification label. It can be applied to multiclass or binary classifiers, but for this project, we are focused only on binary classifiers. The pseudocode for the algorithm as well as an example case can be seen below. \\
 
 \begin{center}
 \includegraphics[scale=.5]{deepfoolpseudo.png} \\
@@ -185,14 +185,14 @@ This algorithm is a type of white box attack algorithm that adds the minimum nec
 \end{center}
 
 \noindent{\bf Algorithm 3 - Particle Swarm Optimization}\\
-This particle swarm optimization (PSO) algorithm operates by finding the local optima and changing them until the classifier can be successfully fooled. The pseudocode and possible run for this algorithm is displayed below.\\
+This particle swarm optimization (PSO) algorithm operates by finding the local optima and changing them until the classifier can be successfully fooled into incorrectly classifying an image. The pseudocode and possible run for this algorithm is displayed below.\\
 \begin{center}
 \includegraphics[scale=.5]{particleswarmpseudo.png} \\
 \caption{Figure 5: The figure above is pseudocode for the PSO adversarial attack.}\\
 \end{center}
 
 \noindent{\bf Algorithm 4 - Carlini Wagner}\\
-The Carlini Wagner (CW) algorithm is an iterative attack adding perturbations to increase the chance that the image is incorrectly classified. A potential application of the algorithm can be viewed below.\\
+The Carlini Wagner (CW) algorithm is an iterative attack that calculates and adds perturbations to increase the chance that the image is incorrectly classified. A potential application of the algorithm can be viewed below.\\
 \begin{center}
 \includegraphics[scale=.75]{CW.png} \\
 \caption{Figure 6: The image above is an example application of a CW attacks.}
@@ -222,7 +222,7 @@ This approach blurred the image to try and reduce the confidence of the classifi
 
 % Testing/Correctness/Verification
 \section{Testing/Correctness/Verification}
-Each algorithm was tested, analyzed for correctness, and verified to ensure it was properly functioning. Loop invariants were used to complete this with checking the initialization, maintenance, termination, and correctness. The initialization checks the invariant holds before the loop starts, maintenance ensures the invariant is true throughout the entire iteration, termination focuses on having the algorithm terminate, and correctness finally confirms that the invariant holds when the loop terminates.\\
+Each algorithm was tested, analyzed for correctness, and verified to ensure it was properly functioning. Testing was done by running the code and considering the errors encountered as well as the output accuracy. Loop invariants were used to complete the correctness with checking the initialization, maintenance, termination, and correctness. The initialization checks the invariant holds before the loop starts, maintenance ensures the invariant is true throughout the entire iteration, termination focuses on having the algorithm terminate, and correctness finally confirms that the invariant holds when the loop terminates. Lastly, verification, which is different then validation, was ensured by returning to the conceptual model and ensuring the one we developed is representative. Verification looks at whether or not the computational model represents the conceptual while validation considers if the computational model is consistent with the actual system considered. While both are important, we are more concerned with verification in this project. \\
 \addcontentsline{toc}{section}{Adversarial Attacks}
 \section*{Adversarial Attacks}
 \noindent{\bf Algorithm 1 - Fast Gradient Sign Method}\\
@@ -231,7 +231,7 @@ For the DeepFool algorithm, the loop invariant statement is the perturbation. Th
 \noindent{\bf Algorithm 3 - Particle Swarm Optimization}\\
 \noindent{\bf Algorithm 4 - Carlini Wagner}\\
 \noindent{\bf Algorithm 5 - Projected Gradient Descent}\\
-The loop invariant for PGD there are multiple loops. For the first loop the invariant is that the minimum is located and stored. It starts with an initialized function of values, checks if the next function has values smaller, and if so it sets that minimum value of that function as the comparator. This loop is continued through the entire population then terminates ensuring that at all points the updated minimum is kept. The next loop is focused on applying the noise to alter the image. The loop invariant is the image alteration. The loop starts with the initial image and goes through the entire dimensions appropriately applying values to the different image parts and pixels based on the different conditions. This continues until it terminates once the entire image is altered as needed.
+The loop invariant for PGD there are multiple loops. For the first loop the invariant is that the minimum is located and stored. It starts with an initialized function of values, checks if the next function has values smaller, and if so it sets that minimum value of that function as the comparator. This loop is continued through the entire population then terminates ensuring that all of the local minimum are found and recorded. The next loop is focused on applying the noise to alter the image at the local minimum. The loop invariant is the image alteration. The loop starts with the initial image and goes through the entire dimensions appropriately applying values to the different image parts and pixels based on the different conditions. This continues until it terminates once the entire image is altered as needed.
 \addcontentsline{toc}{section}{Alternate Approaches}
 \section*{Alternate Approaches}
 \noindent{\bf Alternate Algorithm 1 - Grayscale}\\
@@ -248,7 +248,7 @@ Runtime complexity analyzes the computational complexity of an algorithm to deve
 A lower runtime and walltime is preferred because it is not convenient nor efficient to have to wait long periods of time for an output; however, there is usually a tradeoff in complexity and runtime, especially when considering the number of iterations. This tradeoff is important to consider when developing and implementing different algorithms. The amount of time can also depend on the technology one is using, so investing in better, more advanced technology may be helpful in reducing the wait time and allow for more complex algorithms to take less time.\\
 \addcontentsline{toc}{section}{Adversarial Attacks}
 \section*{Adversarial Attacks}
-Unfortunately, since we were unable to get adversarial attacks working, we were also not able to evaluate their walltime. We were able to look a little into the runtime based on the pseudocode and python code. 
+Unfortunately, since we were unable to get adversarial attacks working, we were also not able to evaluate their walltime. We were able to look a little into the runtime based on the pseudocode and python code. If we were able to better determine these factors, we would have found the different T(n) functions and bounds for the runtime and recorded the time the code took for walltime. From here, we could have compared this to see which took the longest.
 \addcontentsline{toc}{section}{Alternate Approaches}
 \section*{Alternate Approaches}
 \noindent{\bf Alternate Algorithm 1 - Grayscale}\\
@@ -261,10 +261,11 @@ Unfortunately, since we were unable to get adversarial attacks working, we were 
 
 
 \section{Performance}
-The overall performance of the algorithms was analyzed to see how well they worked and their efficiency.
+The overall performance of the algorithms was analyzed using the outputs, runtime, and walltime to see how well they worked and their overall efficiency. It combines both the testing/correctness/verifcation and runtime complexity and walltime. Performance is important in determining which methods to implement and develop the weighted algorithm.\\
+There tends to be tradeoffs with performance, which we addressed briefly in the last section. Increasing complexity may help to improve correctness; however, it may take longer time to run. Performance of algorithms also depend on other factors. Again, the technology used plays a part in efficiency. The models that are analyzed can also determine performance, as training data size can affect fitting, which may help or hinder performance. Using too much training data may cause overfitting, as it becomes too specific to that data. On the other end, using too little data can lead to underfitting because the model can't gather enough information to make strong predictions. It is important to understand these concepts when developing models and algorithms to ensure they perform well. \\
 \addcontentsline{toc}{section}{Adversarial Attacks}
 \section*{Adversarial Attacks}
-Unfortunately, since we were unable to get adversarial attacks working, we were also not able to evaluate their performance. We would assume these attacks would work well in fooling the classifier because of the extensive information and feedback on them. 
+Unfortunately, since we were unable to get adversarial attacks working, we were also not able to evaluate their performance. We would assume these attacks would work well in fooling the classifier because of the extensive information and feedback on them from others.
 \addcontentsline{toc}{section}{Alternate Approaches}
 \section*{Alternate Approaches}
 \noindent{\bf Alternate Algorithm 1 - Grayscale}\\
