@@ -53,6 +53,35 @@ Image <- R6Class("Image",
             } else {
                 print("ERROR")
             }
+
+            csv_data <- c(paste('"', self$file_name, '"', sep = ""), self$type)
+
+            if (pred[1, 1] < 0.5) {
+                csv_data <- append(csv_data, "grass")
+                csv_data <- append(csv_data, pred[1, 2])
+                if (self$type == "grass") {
+                    csv_data <- append(csv_data, "FALSE")
+                } else {
+                    csv_data <- append(csv_data, "TRUE")
+                }
+            } else if (pred[1, 2] < 0.5) {
+                csv_data <- append(csv_data, "dandelions")
+                csv_data <- append(csv_data, pred[1, 1])
+                if (self$type == "dandelions") {
+                    csv_data <- append(csv_data, "FALSE")
+                } else {
+                    csv_data <- append(csv_data, "TRUE")
+                }
+            } else {
+                csv_data <- append(csv_data, "ERROR")
+                csv_data <- append(csv_data, 0)
+                csv_data <- append(csv_data, "FALSE")
+            }
+
+            csv_data <- append(csv_data, "\n")
+            csv_data <- paste(csv_data, collapse = ",")
+
+            return(csv_data)
         }
     )
 )
@@ -86,9 +115,13 @@ reset_test_images <- function() {
 
 # function to check test images
 check_test_images <- function() {
+    csv_string <- "file_name,actual_type,predicted_type,confidence,succesful_attack\n"
+
     for (image in all_images) {
-        image$check()
+        csv_string <- paste(csv_string, image$check(), sep = "")
     }
+
+    write(csv_string, file = "./results.csv")
 }
 
 # script
