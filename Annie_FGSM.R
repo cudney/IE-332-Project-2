@@ -48,7 +48,7 @@ FGSM <- function(type, file_name, epsilon){
     tape$watch(x)
     pred <- model2(x)
     loss <- k_categorical_crossentropy(label, pred)
-    grads <- tape$gradient(loss,x)#don't know why it runs but it runs thank god
+    grads <- tape$gradient(loss,x)
   })
   
   #get the sign of gradient
